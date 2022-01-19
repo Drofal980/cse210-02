@@ -6,10 +6,27 @@ class Card():
         points (int): The number of points the card is worth.
     """
 
-# 2) Create the class constructor. Use the following method comment.
-def __init__(self):
-        """Constructs a new instance of Card with a value and points attribute.
+    # 2) Create the class constructor. Use the following method comment.
+    def __init__(self):
+            """Constructs a new instance of Card with a value and points attribute.
+
+            Args:
+                self (Card): An instance of Card.
+            """
+            self.value = 0
+
+    def get_number(self):
+        """Returns value of card.
 
         Args:
             self (Card): An instance of Card.
         """
+        return self.value
+
+    def set_number(num):
+        """Returns value of card.
+
+            Args:
+                self (Card): An instance of Card.
+        """
+        self.value = num
