@@ -1,4 +1,5 @@
 from game.cards import Card
+import random
 
 
 class Director:
@@ -29,6 +30,9 @@ class Director:
             card = Card()
             card.set_number(i)
             self.deck.append(card)
+        
+        #Shuffles deck
+        random.shuffle(self.deck)
 
     def start_game(self):
         """Starts the game by running the main game loop.
@@ -37,16 +41,20 @@ class Director:
             self (Director): an instance of Director.
         """
         while self.is_playing:
+            self.do_outputs()
             self.get_inputs()
             self.do_updates()
-            self.do_outputs()
+            
 
     def get_inputs(self):
-        """Ask the user if they want to roll.
+        """Ask the user if next card is higher or lower.
 
         Args:
             self (Director): An instance of Director.
         """
+        decision = input("Higher or lower? [h/l]")
+        #Returns if input was correct
+        return (decision == 'h' or 'l')
         
        
     def do_updates(self):
@@ -57,7 +65,6 @@ class Director:
         """
         if not self.is_playing:
             return 
-
         
 
     def do_outputs(self):
@@ -69,6 +76,15 @@ class Director:
         if not self.is_playing:
             return
         
-        print("The card is: ")
+        print("The card is: " + draw_card(self.deck))
+
         
+    def draw_card(deck):
+        if not self.is_playing:
+            return
+        
+        #Return first card
+        return deck[0]
+        
+
         
