@@ -21,14 +21,15 @@ class Director:
             self (Director): an instance of Director.
         """
         self.deck = []
+        self.deck_size = 13
         self.is_playing = True
         self.score = 300
         self.total_score = 0
 
         #Creates a Card, sets value, and adds to a list
-        for i in range(13):
+        for i in range(self.deck_size):
             card = Card()
-            card.set_number(i)
+            card.value = i
             self.deck.append(card)
         
         #Shuffles deck
