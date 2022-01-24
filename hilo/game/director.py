@@ -52,7 +52,7 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-        decision = input("Higher or lower? [h/l]")
+        decision = input("Higher or lower? [h/l] ")
         #Returns if input was correct
         return (decision == 'h' or 'l')
         
@@ -65,7 +65,9 @@ class Director:
         """
         if not self.is_playing:
             return 
-        
+
+        #Moves top card to bottom of deck
+        self.move_top_card_to_bottom()
 
     def do_outputs(self):
         """Displays the card and the score. Also asks the player if the next card will be higher or lower. 
@@ -85,6 +87,10 @@ class Director:
         
         #Return first card
         return self.deck[0]
+
+    def move_top_card_to_bottom(self):
+        self.deck.append(self.deck[0])
+        self.deck.remove(self.deck[0])
         
 
         
