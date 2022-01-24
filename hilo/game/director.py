@@ -28,8 +28,7 @@ class Director:
 
         #Creates a Card, sets value, and adds to a list
         for i in range(self.deck_size):
-            card = Card()
-            card.value = i
+            card = Card(i)
             self.deck.append(card)
         
         #Shuffles deck
@@ -77,15 +76,15 @@ class Director:
         if not self.is_playing:
             return
         
-        print("The card is: " + draw_card(self.deck))
+        print("The card is: " + str(self.draw_card()))
 
         
-    def draw_card(deck):
+    def draw_card(self):
         if not self.is_playing:
             return
         
         #Return first card
-        return deck[0]
+        return self.deck[0]
         
 
         
