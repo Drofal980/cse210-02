@@ -42,8 +42,8 @@ class Director:
         """
         while self.is_playing:
             self.do_outputs()
-            self.get_inputs()
-            self.do_updates()
+            input = self.get_inputs()
+            self.do_updates(input)
             
 
     def get_inputs(self):
@@ -54,10 +54,10 @@ class Director:
         """
         decision = input("Higher or lower? [h/l] ")
         #Returns if input was correct
-        return (decision == 'h' or 'l')
+        return decision
         
        
-    def do_updates(self):
+    def do_updates(self, input):
         """Updates the player's score.
 
         Args:
@@ -65,6 +65,23 @@ class Director:
         """
         if not self.is_playing:
             return 
+        #if the player reaches 0 points the game is over
+        if self.score <= 0:
+            self.is_playing = False
+        
+    
+        #The player earns 100 points if they guessed correctly
+        if input == "h":
+            if self.deck[1].get_value() > self.deck[0].get_value():
+                self.score += 100
+            #The player looses 75 points if they guessed incorrectly
+            else:
+                self.score -= 75
+        elif input == "l":
+            if self.deck[1].get_value() < self.deck[0].get_value():
+                self.score += 100
+            else:
+                self.score -= 75
 
         #Moves top card to bottom of deck
         self.move_top_card_to_bottom()
@@ -79,6 +96,7 @@ class Director:
             return
         
         print("The card is: " + str(self.draw_card()))
+        print(self.score)
 
         
     def draw_card(self):
