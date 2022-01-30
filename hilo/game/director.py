@@ -41,9 +41,12 @@ class Director:
             self (Director): an instance of Director.
         """
         while self.is_playing:
+            print()
             self.do_outputs()
             input = self.get_inputs()
             self.do_updates(input)
+            self.play_again()
+            
             
 
     def get_inputs(self):
@@ -69,19 +72,25 @@ class Director:
         if self.score <= 0:
             self.is_playing = False
         
+        current_card = self.deck[0].get_value()
+        next_card = self.deck[1].get_value()
+
+        print("The next card is: " + str(next_card))
     
         #The player earns 100 points if they guessed correctly
         if input == "h":
-            if self.deck[1].get_value() > self.deck[0].get_value():
+            if  next_card > current_card:
                 self.score += 100
             #The player looses 75 points if they guessed incorrectly
             else:
                 self.score -= 75
         elif input == "l":
-            if self.deck[1].get_value() < self.deck[0].get_value():
+            if next_card < current_card:
                 self.score += 100
             else:
                 self.score -= 75
+        
+        print("Your score is: " + str(self.score))
 
         #Moves top card to bottom of deck
         self.move_top_card_to_bottom()
@@ -96,7 +105,6 @@ class Director:
             return
         
         print("The card is: " + str(self.draw_card()))
-        print(self.score)
 
         
     def draw_card(self):
@@ -110,5 +118,11 @@ class Director:
         self.deck.append(self.deck[0])
         self.deck.remove(self.deck[0])
         
+    def play_again(self):
+        decision = input("Play again? [y/n] ")
+        if decision == 'y':
+            self.is_playing = True
+        else:
+            self.is_playing = False
 
         

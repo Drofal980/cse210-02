@@ -21,4 +21,4 @@ class Card():
         return self.value
 
     def __str__(self):
-        return str(self.value) + " of "+ self.suit
+        return str(self.value)
