@@ -30,12 +30,8 @@ class Director:
         #Creates a Card, sets value, and adds to a list
         
         for suit in suits:
-            
             for i in range(self.deck_size):
                 card = Card(i+1, suit)
-
-
-                
                 self.deck.append(card)
         
         #Shuffles deck
@@ -52,9 +48,10 @@ class Director:
             self.do_outputs()
             input = self.get_inputs()
             self.do_updates(input)
-            self.play_again()
-            
-            
+            if self.check_score():
+                self.play_again()
+            else:
+                self.is_playing = False
 
     def get_inputs(self):
         """Ask the user if next card is higher or lower.
@@ -69,8 +66,6 @@ class Director:
                 prompt == False
                 return decision
         
-        
-       
     def do_updates(self, input):
         """Updates the player's score.
 
@@ -79,9 +74,6 @@ class Director:
         """
         if not self.is_playing:
             return 
-        #if the player reaches 0 points the game is over
-        if self.score <= 0:
-            self.is_playing = False
         
         current_card = self.deck[0]
         next_card = self.deck[1]
@@ -121,15 +113,22 @@ class Director:
     def draw_card(self):
         if not self.is_playing:
             return
-        
         #Return first card
         return self.deck[0]
 
     def move_top_card_to_bottom(self):
         self.deck.append(self.deck[0])
         self.deck.remove(self.deck[0])
-        
+    
+    def check_score(self):
+        #if the player reaches 0 points the game is over
+        if self.score <= 0:
+            return False
+        return True
+
     def play_again(self):
+        if not self.is_playing:
+            return
         correct_input = True
         while correct_input:
             decision = input("Play again? [y/n] ")

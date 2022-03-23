@@ -13,19 +13,18 @@ class Card():
             Args:
                 self (Card): An instance of Card.
             """
-            self.suit = suit
             self.value = value
-            
-            face = self.value
+            self.suit = suit
+            self.face = value
+
             if self.value == 1:
-                face = "Ace"
+                self.face = "Ace"
             elif self.value == 11:
-                face == "Jack"
+                self.face = "Jack"
             elif self.value == 12:
-                face == "Queen"
-            elif self.value == 11:
-                face == "King"
-            self.face = face  
+                self.face = "Queen"
+            elif self.value == 13:
+                self.face = "King"
 
     #defined the get_value to return self. value
     def get_value(self):
