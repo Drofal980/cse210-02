@@ -25,11 +25,18 @@ class Director:
         self.is_playing = True
         self.score = 300
         self.total_score = 0
+        suits = ["Clubs", "Hearts", "Spades", "Diamonds"]
 
         #Creates a Card, sets value, and adds to a list
-        for i in range(self.deck_size):
-            card = Card(i)
-            self.deck.append(card)
+        
+        for suit in suits:
+            
+            for i in range(self.deck_size):
+                card = Card(i+1, suit)
+
+
+                
+                self.deck.append(card)
         
         #Shuffles deck
         random.shuffle(self.deck)
@@ -55,9 +62,13 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-        decision = input("Higher or lower? [h/l] ")
-        #Returns if input was correct
-        return decision
+        prompt = True
+        while prompt:
+            decision = input("Higher or lower? [h/l] ").lower()
+            if decision == 'h' or 'l':
+                prompt == False
+                return decision
+        
         
        
     def do_updates(self, input):
@@ -72,20 +83,20 @@ class Director:
         if self.score <= 0:
             self.is_playing = False
         
-        current_card = self.deck[0].get_value()
-        next_card = self.deck[1].get_value()
+        current_card = self.deck[0]
+        next_card = self.deck[1]
 
         print("The next card is: " + str(next_card))
     
         #The player earns 100 points if they guessed correctly
         if input == "h":
-            if  next_card > current_card:
+            if  next_card.get_value() > current_card.get_value():
                 self.score += 100
             #The player looses 75 points if they guessed incorrectly
             else:
                 self.score -= 75
         elif input == "l":
-            if next_card < current_card:
+            if next_card.get_value() < current_card.get_value():
                 self.score += 100
             else:
                 self.score -= 75
@@ -119,10 +130,18 @@ class Director:
         self.deck.remove(self.deck[0])
         
     def play_again(self):
-        decision = input("Play again? [y/n] ")
-        if decision == 'y':
-            self.is_playing = True
-        else:
-            self.is_playing = False
+        correct_input = True
+        while correct_input:
+            decision = input("Play again? [y/n] ")
+            if decision == 'n':
+                correct_input = False
+                self.is_playing = False
+            elif decision == 'y':
+                correct_input = False
+                # self.is_playing = True
+            else:
+                print("Please use y or n")
+                
+            
 
         
